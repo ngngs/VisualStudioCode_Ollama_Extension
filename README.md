@@ -2,13 +2,6 @@
 
 완전히 오프라인 환경에서 작동하는 VSCode Extension입니다.
 
-## 개발 환경
-
-- **VSCode 버전**: 1.52.1
-- **Node.js 버전**: 12.14.1
-- **운영체제**: Windows
-- **언어**: TypeScript
-
 ## 주요 특징
 
 - ✅ VSCode 내장 채팅 인터페이스
