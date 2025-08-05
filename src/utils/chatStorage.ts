@@ -110,6 +110,20 @@ export class ChatStorage {
   }
 
   /**
+   * 세션의 메시지 목록 가져오기
+   * @param sessionId 세션 ID
+   * @returns 메시지 목록
+   */
+  public getSessionMessages(sessionId: string): ChatMessage[] {
+    try {
+      const session = this.loadSession(sessionId);
+      return session?.messages || [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /**
    * 모든 세션 로드
    * @returns 세션 목록
    */

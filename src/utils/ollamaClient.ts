@@ -64,7 +64,7 @@ export class OllamaClient {
    */
   public async sendMessage(
     message: string, 
-    model: string = 'llama2',
+    model: string = 'codellama:7b-instruct-q5_K_M',
     context?: string
   ): Promise<string> {
     try {
@@ -73,27 +73,40 @@ export class OllamaClient {
         ? `프로젝트 컨텍스트:\n${context}\n\n사용자 질문:\n${message}`
         : message;
 
-      const response = await fetch(`${this.baseUrl}/api/generate`, {
+      const requestUrl = `${this.baseUrl}/api/generate`;
+      const requestBody = {
+        model: model,
+        prompt: fullMessage,
+        stream: false
+      };
+
+      console.log(`[Ollama] 요청 URL: ${requestUrl}`);
+      console.log(`[Ollama] 요청 본문:`, requestBody);
+
+      const response = await fetch(requestUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          model: model,
-          prompt: fullMessage,
-          stream: false
-        })
+        body: JSON.stringify(requestBody)
       });
 
+      console.log(`[Ollama] 응답 상태: ${response.status} ${response.statusText}`);
+      
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const errorText = await response.text();
+        console.log(`[Ollama] 에러 응답: ${errorText}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
       }
 
       const data: OllamaResponse = await response.json();
+      console.log(`[Ollama] 성공 응답:`, data);
       return data.response;
-    } catch (error) {
-      throw new Error('Ollama 서버와 통신할 수 없습니다. 서버가 실행 중인지 확인해주세요.');
-    }
+          } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
+        console.log(`[Ollama] 예외 발생: ${errorMessage}`);
+        throw new Error(`Ollama 서버와 통신할 수 없습니다: ${errorMessage}`);
+      }
   }
 
   /**
@@ -105,7 +118,7 @@ export class OllamaClient {
    */
   public async sendMessageStream(
     message: string,
-    model: string = 'llama2',
+    model: string = 'codellama:7b-instruct-q5_K_M',
     onChunk: (chunk: string) => void,
     context?: string
   ): Promise<void> {

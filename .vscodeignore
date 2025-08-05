@@ -1,0 +1,12 @@
+node_modules/
+.vscode-test/
+*.vsix
+.git/
+.gitignore
+.cursor/
+*.log
+src/
+tsconfig.json
+.eslintrc.js
+.prettierrc
+scripts/ 

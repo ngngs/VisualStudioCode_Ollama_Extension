@@ -18,27 +18,7 @@ export function activate(context: vscode.ExtensionContext): void {
   const ollamaClient = new OllamaClient(ollamaUrl);
 
   // 채팅 명령어 등록
-  registerChatCommands(context);
-
-  // 채팅 패널 열기 명령어 등록
-  const openChatCommand = vscode.commands.registerCommand('ollama.openChat', () => {
-    ChatProvider.createOrShow(context.extensionUri, context);
-  });
-
-  // Ollama 연결 설정 명령어 등록
-  const configureOllamaCommand = vscode.commands.registerCommand('ollama.configure', async () => {
-    const ollamaUrl = await vscode.window.showInputBox({
-      prompt: 'Ollama 서버 주소를 입력하세요 (예: http://localhost:11434)',
-      placeHolder: 'http://localhost:11434',
-      value: 'http://localhost:11434'
-    });
-
-    if (ollamaUrl) {
-      await context.globalState.update('ollamaUrl', ollamaUrl);
-      ollamaClient.setBaseUrl(ollamaUrl);
-      vscode.window.showInformationMessage(`Ollama 서버가 설정되었습니다: ${ollamaUrl}`);
-    }
-  });
+  registerChatCommands(context, ollamaClient);
 
   // Ollama 연결 테스트 명령어 등록
   const testConnectionCommand = vscode.commands.registerCommand('ollama.testConnection', async () => {
@@ -53,16 +33,13 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.window.showErrorMessage('Ollama 서버에 연결할 수 없습니다. 서버가 실행 중인지 확인해주세요.');
       }
     } catch (error) {
-      vscode.window.showErrorMessage(`연결 테스트 실패: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
+      vscode.window.showErrorMessage(`연결 테스트 실패: ${errorMessage}`);
     }
   });
 
-  // 모든 명령어를 컨텍스트에 등록
-  context.subscriptions.push(
-    openChatCommand,
-    configureOllamaCommand,
-    testConnectionCommand
-  );
+  // 테스트 연결 명령어를 컨텍스트에 등록
+  context.subscriptions.push(testConnectionCommand);
 
   // 상태바에 Ollama 상태 표시
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
