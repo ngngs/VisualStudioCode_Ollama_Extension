@@ -1,0 +1,53 @@
+# TypeScript 코딩 표준
+
+## 기본 규칙
+- TypeScript strict 모드 사용
+- 모든 함수와 클래스에 JSDoc 주석 작성
+- 명시적 타입 선언 사용
+- any 타입 사용 금지 (필요시 unknown 사용)
+
+## 함수 작성 규칙
+```typescript
+/**
+ * 함수 설명
+ * @param param1 매개변수 설명
+ * @param param2 매개변수 설명
+ * @returns 반환값 설명
+ */
+function exampleFunction(param1: string, param2: number): boolean {
+  // 함수 구현
+  return true;
+}
+```
+
+## 클래스 작성 규칙
+```typescript
+/**
+ * 클래스 설명
+ */
+class ExampleClass {
+  private readonly property: string;
+
+  constructor(property: string) {
+    this.property = property;
+  }
+
+  /**
+   * 메서드 설명
+   * @returns 반환값 설명
+   */
+  public getProperty(): string {
+    return this.property;
+  }
+}
+```
+
+## VSCode Extension 특화 규칙
+- vscode 네임스페이스 사용
+- ExtensionContext 적절히 활용
+- 명령어 등록 시 disposable 패턴 사용
+- 에러 처리 시 한국어 메시지 사용
+description:
+globs:
+alwaysApply: false
+---

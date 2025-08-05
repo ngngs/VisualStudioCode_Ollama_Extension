@@ -1,0 +1,31 @@
+# VSCode Extension 개발 규칙
+
+## 언어 규칙
+- 모든 코드 주석과 문서는 한국어로 작성
+- README.md는 한국어로 작성
+- 에러 메시지와 사용자 인터페이스는 한국어로 표시
+
+## 개발 환경 규칙
+- VSCode 버전: 1.52.1
+- Node.js 버전: 12.14.1
+- 운영체제: Windows
+- TypeScript 사용 권장 (JavaScript도 허용)
+
+## 오프라인 환경 규칙
+- 모든 외부 API 호출 금지
+- 인터넷 연결이 필요한 라이브러리 사용 금지
+- 로컬 파일 시스템만 사용
+- 모든 기능은 완전히 오프라인에서 작동해야 함
+
+## 코드 작성 규칙
+- ESLint 규칙 준수
+- Prettier 포맷팅 적용
+- TypeScript strict 모드 사용
+- 모든 함수와 클래스에 JSDoc 주석 작성
+
+## 파일 구조
+메인 extension 파일은 [src/extension.ts](mdc:src/extension.ts)이며, 설정 파일들은 [package.json](mdc:package.json), [tsconfig.json](mdc:tsconfig.json), [.eslintrc.js](mdc:.eslintrc.js), [.prettierrc](mdc:.prettierrc)에 있습니다.
+description:
+globs:
+alwaysApply: false
+---

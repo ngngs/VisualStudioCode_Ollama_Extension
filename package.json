@@ -1,0 +1,82 @@
+{
+  "name": "vsCode-ollama-extension",
+  "displayName": "VSCode Ollama Extension",
+  "description": "완전히 오프라인에서 작동하는 VSCode Extension",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.52.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:ollama.openChat",
+    "onCommand:ollama.configure",
+    "onCommand:ollama.testConnection"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ollama.openChat",
+        "title": "Ollama Chat 열기",
+        "category": "Ollama"
+      },
+      {
+        "command": "ollama.configure",
+        "title": "Ollama 서버 설정",
+        "category": "Ollama"
+      },
+      {
+        "command": "ollama.testConnection",
+        "title": "Ollama 연결 테스트",
+        "category": "Ollama"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "ollama.openChat",
+          "when": "true"
+        },
+        {
+          "command": "ollama.configure",
+          "when": "true"
+        },
+        {
+          "command": "ollama.testConnection",
+          "when": "true"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.52.1",
+    "@types/node": "^12.14.1",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "eslint": "^7.0.0",
+    "typescript": "^4.0.0",
+    "prettier": "^2.0.0"
+  },
+  "dependencies": {},
+  "publisher": "your-publisher-name",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/vsCode-ollama-extension.git"
+  },
+  "keywords": [
+    "vscode",
+    "extension",
+    "offline"
+  ],
+  "license": "MIT"
+} 

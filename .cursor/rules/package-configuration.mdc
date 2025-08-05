@@ -1,0 +1,54 @@
+# 패키지 설정 및 빌드 규칙
+
+## package.json 규칙
+- VSCode 버전 호환성: `"vscode": "^1.52.1"`
+- Node.js 버전 호환성: `"@types/node": "^12.14.1"`
+- 모든 의존성은 package.json에 명시
+- devDependencies와 dependencies 구분
+- 한국어 키워드 사용
+
+## TypeScript 설정 규칙
+- strict 모드 활성화
+- ES2020 타겟 사용
+- 소스맵 생성
+- 선언 파일 생성
+- 루트 디렉토리: src
+
+## ESLint 규칙
+- TypeScript ESLint 플러그인 사용
+- 한국어 주석 규칙 적용
+- no-console 경고 설정
+- prefer-const 강제
+- no-var 금지
+
+## Prettier 규칙
+- 세미콜론 사용
+- 작은따옴표 사용
+- 80자 줄 길이 제한
+- 2칸 들여쓰기
+- LF 줄바꿈 사용
+
+## 빌드 스크립트 규칙
+```json
+{
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  }
+}
+```
+
+## Extension 매니페스트 규칙
+- activationEvents 최소화
+- contributes 섹션에 명령어 정의
+- categories 적절히 설정
+- publisher 정보 포함
+- repository 정보 포함
+description:
+globs:
+alwaysApply: false
+---
