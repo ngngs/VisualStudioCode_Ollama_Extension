@@ -193,24 +193,87 @@ export class ChatProvider {
         
         .code-block {
             background-color: var(--vscode-editor-background);
-            border: 1px solid var(--vscode-input-border);
-            border-radius: 4px;
-            padding: 10px;
-            margin: 10px 0;
+            border: 2px solid var(--vscode-focusBorder);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             font-size: 13px;
             overflow-x: auto;
             white-space: pre;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         
         .code-block-header {
-            background-color: var(--vscode-editor-inactiveSelectionBackground);
-            padding: 5px 10px;
-            margin: -10px -10px 10px -10px;
-            border-radius: 4px 4px 0 0;
+            background: linear-gradient(135deg, var(--vscode-editor-inactiveSelectionBackground) 0%, var(--vscode-editor-background) 100%);
+            padding: 8px 15px;
+            margin: -15px -15px 15px -15px;
+            border-radius: 6px 6px 0 0;
             font-size: 12px;
-            color: var(--vscode-descriptionForeground);
-            border-bottom: 1px solid var(--vscode-input-border);
+            font-weight: bold;
+            color: var(--vscode-foreground);
+            border-bottom: 2px solid var(--vscode-focusBorder);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-block-content {
+            background-color: var(--vscode-editor-background);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--vscode-input-border);
+        }
+        
+        .copy-btn {
+            background-color: var(--vscode-button-background);
+            color: var(--vscode-button-foreground);
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--vscode-button-hoverBackground);
+        }
+        
+        .copy-btn:active {
+            background-color: var(--vscode-button-activeBackground);
+        }
+        
+        /* 언어별 색상 */
+        .code-block.javascript .code-block-header {
+            background: linear-gradient(135deg, #f7df1e 0%, #f0db4f 100%);
+            color: #000;
+        }
+        
+        .code-block.python .code-block-header {
+            background: linear-gradient(135deg, #3776ab 0%, #306998 100%);
+            color: #fff;
+        }
+        
+        .code-block.java .code-block-header {
+            background: linear-gradient(135deg, #007396 0%, #ed8b00 100%);
+            color: #fff;
+        }
+        
+        .code-block.html .code-block-header {
+            background: linear-gradient(135deg, #e34c26 0%, #f06529 100%);
+            color: #fff;
+        }
+        
+        .code-block.css .code-block-header {
+            background: linear-gradient(135deg, #1572b6 0%, #33a9dc 100%);
+            color: #fff;
+        }
+        
+        .code-block.typescript .code-block-header {
+            background: linear-gradient(135deg, #3178c6 0%, #235a97 100%);
+            color: #fff;
         }
         
         .loading-message {
@@ -367,12 +430,12 @@ export class ChatProvider {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message ' + sender;
             
-            // 간단한 줄바꿈 처리
-            if (sender === 'assistant') {
-                messageDiv.innerHTML = text.replace(/\\n/g, '<br>');
-            } else {
-                messageDiv.textContent = text;
-            }
+                    // 간단한 줄바꿈 처리
+        if (sender === 'assistant') {
+            messageDiv.innerHTML = text.replace(/\\n/g, '<br>');
+        } else {
+            messageDiv.textContent = text;
+        }
             
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -395,7 +458,7 @@ export class ChatProvider {
             if (loadingMessage) {
                 loadingMessage.remove();
             }
-        }
+                }
         
 
 
